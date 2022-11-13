@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Solución 1</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="">Desafío JS Práctica</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="ejercicio1.html">Ejercicio 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ejercicio2.html">Ejercicio 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ejercicio3.html">Ejercicio 3</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div>
+      <div style="width: 40%; margin: 0 auto" class="pt-5">
+        <h2>Contáctenos</h2>
+        <div class="resultado" style="color: green; font-style: italic"></div>
+        <form id="formulario">
+          <div>
+            <div style="display: flex; flex-direction: column">
+              <label> Nombre completo </label>
+              <input id="nombre" type="text" />
+              <p id="errorNombre" class="errorNombre" style="color: red; font-style: italic"></p>
+            </div>
+            <div style="display: flex; flex-direction: column">
+              <label> Asunto </label>
+              <input id="asunto" type="text" />
+              <p class="errorAsunto" style="color: red; font-style: italic"></p>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column">
+            <label> Mensaje </label>
+            <textarea id="mensaje"></textarea>
+            <p class="errorMensaje" style="color: red; font-style: italic"></p>
+          </div>
+          <div>
+            <button id="botton" type="submit">Envíar mensaje</button>
+            <button id="limpiar" type="reset">Limpiar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      function limpiar() {
+        document.querySelector(".resultado").innerHTML = "";
+        document.querySelector(".errorNombre").innerHTML = "";
+        document.querySelector(".errorAsunto").innerHTML = "";
+        document.querySelector(".errorMensaje").innerHTML = "";
+
+      }
+
+      function exito() {
+        document.querySelector(".resultado").innerHTML =
+          "Mensaje enviado con éxito !!!";
+      }
+
+      function validar(nombre, asunto, mensaje) {
+        let validación = true;
+        let expresionNombre = /[a-zA-ZÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+        let expresionAsunto = /[a-zA-Z]\w+/;
+        let expresionMensaje = /[a-zA-Z]\w+/;
+        if (nombre == "" || expresionNombre.test(nombre) == false) {
+          document.querySelector(".errorNombre").innerHTML =
+            "El nombre es requerido y no debe contener números.";
+          validación = false;
+        }
+        if (asunto == "" || expresionAsunto.test(asunto) == false) {
+          document.querySelector(".errorAsunto").innerHTML =
+            "El asunto es requerido y no debe contener números.";
+          validación = false;
+        }
+        if (mensaje == "" || expresionMensaje.test(mensaje) == false) {
+          document.querySelector(".errorMensaje").innerHTML =
+            "El mensaje es requerido y no debe contener números.";
+          validación = false;
+        }
+        return validación;
+      }
+      let form = document.getElementById("formulario");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        limpiar();
+        let nombre = document.getElementById("nombre").value;
+        let asunto = document.getElementById("asunto").value;
+        let mensaje = document.getElementById("mensaje").value;
+
+        let resultado = validar(nombre, asunto, mensaje);
+
+        if (resultado == true) {
+          exito();
+        }
+      });
+    </script>
+  </body>
+</html>
